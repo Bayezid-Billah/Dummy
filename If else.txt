@@ -1,0 +1,241 @@
+JB
+
+.MODEL SMALL                                                       
+.STACK 100
+.DATA
+.CODE
+MAIN PROC
+
+MOV AL,'A'
+MOV BL,'B'
+
+CMP AL,BL
+JB L1
+MOV DL,BL
+MOV AH,2
+INT 21H
+JMP EXIT
+
+L1: 
+MOV DL,AL
+MOV AH,2
+INT 21H
+JMP EXIT
+
+EXIT:
+MOV AH,4CH
+INT 21H
+MAIN ENDP
+END MAIN
+
+Loop star printasm
+
+.MODEL SMALL
+ 
+.CODE   
+MAIN PROC
+    
+    MOV CX,10
+    MOV DL,'*'   
+                    ;JCXZ EXIT
+TOP: 
+    
+    MOV AH,2
+    INT 21H
+    LOOP TOP
+    
+EXIT:
+    MOV AH,4CH
+    INT 21H
+    
+MAIN ENDP
+END MAIN
+
+ODD EVEN
+
+.MODEL SMALL
+ 
+.CODE   
+MAIN PROC
+    MOV AH,1
+    INT 21H
+    
+    CMP AL,'1'
+    JE ODD
+    CMP AL,'3'
+    JE ODD   
+    
+    CMP AL,'2'
+    JE EVEN
+    CMP AL,'4'
+    JE EVEN  
+    
+ODD: 
+    MOV DL,'o'
+    MOV AH,2
+    INT 21H
+    JMP EXIT
+    
+EVEN: 
+    MOV DL,'e'
+    MOV AH,2
+    INT 21H
+    JMP EXIT
+    
+    
+EXIT:
+    
+MAIN ENDP
+END MAIN
+
+Print A_Z 
+
+.MODEL SMALL                                                       
+.STACK 100
+.DATA
+.CODE
+MAIN PROC
+MOV AH,2
+MOV CX,26
+MOV DL,65   ;ASCII of 'A'
+
+PRINT_LOOP:
+INT 21H
+INC DL
+DEC CX
+JNZ PRINT_LOOP
+MOV AH,4CH
+INT 21H
+MAIN ENDP
+END MAIN
+
+
+While loop 
+
+.MODEL SMALL
+ 
+.CODE   
+MAIN PROC
+    
+    MOV BL,0 ; char count
+	MOV AH,1
+	INT 21H  
+	
+WHILE_:
+	CMP AL,0DH		; CR ?
+	JE END_WHILE	;yes, exit		
+	INC BL		; not CR so inc
+    	INT 21H         ; read next char
+    	JMP WHILE_      ; loop again
+
+
+END_WHILE:  
+    MOV DL,0AH
+    MOV AH,2
+    INT 21H
+    MOV DL,0dH
+    INT 21H
+     
+    ADD BL,48
+    MOV DL,BL
+    INT 21H
+    MOV AH,4CH
+    INT 21H
+    
+MAIN ENDP
+END MAIN
+
+
+odd even---------------
+
+
+.MODEL SMALL
+ 
+.CODE   
+MAIN PROC
+    MOV AH,1
+    INT 21H
+    
+    CMP AL,'1'
+    JE ODD
+    CMP AL,'3'
+    JE ODD   
+    
+    CMP AL,'2'
+    JE EVEN
+    CMP AL,'4'
+    JE EVEN  
+    
+ODD: 
+    MOV DL,'o'
+    MOV AH,2
+    INT 21H
+    JMP EXIT
+    
+EVEN: 
+    MOV DL,'e'
+    MOV AH,2
+    INT 21H
+    JMP EXIT
+    
+    
+EXIT:
+    
+MAIN ENDP
+END MAIN
+
+print a-z------------
+
+.MODEL SMALL                                                       
+.STACK 100
+.DATA
+.CODE
+MAIN PROC
+MOV AH,2
+MOV CX,26
+MOV DL,65   ;ASCII of 'A'
+
+PRINT_LOOP:
+INT 21H
+INC DL
+DEC CX
+JNZ PRINT_LOOP
+MOV AH,4CH
+INT 21H
+MAIN ENDP
+END MAIN
+
+while loop --------------------
+
+.MODEL SMALL
+ 
+.CODE   
+MAIN PROC
+    
+    MOV BL,0 ; char count
+	MOV AH,1
+	INT 21H  
+	
+WHILE_:
+	CMP AL,0DH		; CR ?
+	JE END_WHILE	;yes, exit		
+	INC BL		; not CR so inc
+    	INT 21H         ; read next char
+    	JMP WHILE_      ; loop again
+
+
+END_WHILE:  
+    MOV DL,0AH
+    MOV AH,2
+    INT 21H
+    MOV DL,0dH
+    INT 21H
+     
+    ADD BL,48
+    MOV DL,BL
+    INT 21H
+    MOV AH,4CH
+    INT 21H
+    
+MAIN ENDP
+END MAIN
